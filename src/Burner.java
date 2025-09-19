@@ -120,7 +120,7 @@ public class Burner {
 			break;
 		}
 		
-		System.out.println(mySetting.toString() + "....." + temperatureMessage);
+		System.out.println("[" + mySetting.toString() + "]....." + temperatureMessage);
 		
 		return mySetting.toString() + "....." + temperatureMessage;
 	}
