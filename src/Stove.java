@@ -30,7 +30,18 @@ public class Stove {
 	 **** You must write the following method ****
 	 */
 	public void displayStove() {
-
+		boolean warning = false;
+		
+		for(int i = 0; i < NUM_BURNERS; ++i) {
+			burners.get(i).display();
+			if(burners.get(i).getMyTemperature() == Burner.Temperature.BLAZING) {
+				warning = true;
+			}
+		}
+		if(warning == true) {
+			System.out.println("RED LIGHT - HOT BURNER ALERT");
+		}
+		
 	}
 	
 	/**
