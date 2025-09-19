@@ -102,7 +102,7 @@ public class Burner {
 		
 	}
 	
-	public String display() {
+	public void display() {
 		String temperatureMessage = "";
 		
 		switch(myTemperature) {
@@ -122,7 +122,6 @@ public class Burner {
 		
 		System.out.println("[" + mySetting.toString() + "]....." + temperatureMessage);
 		
-		return mySetting.toString() + "....." + temperatureMessage;
 	}
 	
 	public static void main(String[] args) {
