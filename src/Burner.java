@@ -4,7 +4,7 @@ public class Burner {
 	public final static int TIME_DURATION = 2;
 	
 	
-	private enum Temperature {
+	public enum Temperature {
 		BLAZING,
 		HOT,
 		WARM,
@@ -161,9 +161,6 @@ public class Burner {
 			test2.updateTemperature();
 			test2.display();
 		}
-		
-		
-		
 		
 	}
 }
