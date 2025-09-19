@@ -10,7 +10,11 @@ public class Burner {
 		WARM,
 		COLD;
 	}
-	
+	/* private enum for handling temperature changes
+	 * INCREASE: the burner must increase to reach its desired temperature
+	 * DECREASE: the burner must decrease to reach its desired temperature
+	 * DESTINATION: the burner is at its desired temperature
+	 */
 	private enum State { 
 		INCREASE, 
 		DECREASE, 
@@ -19,10 +23,14 @@ public class Burner {
 	
 	private Temperature myTemperature;
 	private Setting mySetting;
+	/*
+	 * decided to use state enum for determining which direction to  
+	 * change the temperature because it is a clear way of communicating logic
+	 * as opposed to a boolean 
+	 */ 
 	private State myState;
 	private int timer;
 	
-
 	public Burner() {
 		super();
 		this.myTemperature = Temperature.COLD;
@@ -103,10 +111,13 @@ public class Burner {
 			myState = State.DESTINATION;
 		}
 		
+		//handle heat changes using current state
 		switch(myState) {
 		case DESTINATION: 
 			break;
 		case INCREASE:
+			//chose to handle increasing / decreasing in a different 
+			//function to improve readability
 			increaseTemperature();
 		break;
 		case DECREASE:
@@ -157,6 +168,7 @@ public class Burner {
 	public void display() {
 		String temperatureMessage = "";
 		
+		//convert myTemperature to a message equivalent
 		switch(myTemperature) {
 		case COLD:
 			temperatureMessage = "cooool";
@@ -171,7 +183,7 @@ public class Burner {
 			temperatureMessage = "VERY HOT! DON'T TOUCH";
 			break;
 		}
-		
+		//print in desired format
 		System.out.println("[" + mySetting.toString() + "]....." + temperatureMessage);
 		
 	}
