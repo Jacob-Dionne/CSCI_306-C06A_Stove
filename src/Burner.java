@@ -59,7 +59,7 @@ public class Burner {
 	}
 	
 	public void updateTemperature() {
-		if (timer > 0) {
+		if (timer > 1) {
 			timer--;
 			return;
 		}
@@ -137,7 +137,7 @@ public class Burner {
 			System.out.println("___TEST " + (i + 1) + " ___");
 			test.plusButton();
 			test.display();
-			for(int j = 0; j < 3; ++j) {
+			for(int j = 0; j < 2; ++j) {
 				System.out.println(test.timer);
 				test.updateTemperature();
 			}
@@ -152,11 +152,11 @@ public class Burner {
 		Burner test2 = new Burner();
 		
 		//test outcome of incrementing beyond setting
-		for(int i = 0; i < 2; ++i) {
+		for(int i = 0; i < 3; ++i) {
 			test2.plusButton();
 			test2.display();
 		}
-		for(int j = 0; j < 15; ++j) {
+		for(int j = 0; j < 5*3; ++j) {
 			System.out.println(test2.timer);
 			test2.updateTemperature();
 			test2.display();
