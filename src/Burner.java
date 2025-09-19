@@ -11,15 +11,24 @@ public class Burner {
 		COLD;
 	}
 	
+	private enum State { 
+		INCREASE, 
+		DECREASE, 
+		DESTINATION; 
+	}
+	
 	private Temperature myTemperature;
 	private Setting mySetting;
+	private State myState;
 	private int timer;
+	
 
 	public Burner() {
 		super();
 		this.myTemperature = Temperature.COLD;
 		this.mySetting = Setting.OFF;
 		this.timer = 0;
+		this.myState = State.DESTINATION;
 	}
 	
 	public Temperature getMyTemperature() {
@@ -28,6 +37,8 @@ public class Burner {
 
 	public void plusButton() {
 		timer = TIME_DURATION;
+		myState = State.INCREASE;
+		
 		switch(mySetting) {
 			case OFF:
 				mySetting = Setting.LOW;
@@ -44,6 +55,8 @@ public class Burner {
 	
 	public void minusButton() {
 		timer = TIME_DURATION;
+		myState = State.DECREASE;
+		
 		switch(mySetting) {
 		case HIGH:
 			mySetting = Setting.MEDIUM;
@@ -59,31 +72,51 @@ public class Burner {
 	}
 	
 	public void updateTemperature() {
+		if(myState == State.DESTINATION) {
+			return;
+		}
+		
 		if (timer > 1) {
 			timer--;
 			return;
 		}
 		
+		
+		Temperature target = null; 
+		//determine target temperature based on current setting
 		switch(mySetting) {
+		case OFF:
+			target = Temperature.COLD;
+			break;
 		case LOW:
-			this.increaseTemperature(Temperature.WARM);
+			target = Temperature.WARM;
 			break;
 		case MEDIUM:
-			this.increaseTemperature(Temperature.HOT);
+			target = Temperature.HOT;
 			break;
 		case HIGH:
-			this.increaseTemperature(Temperature.BLAZING);
+			target = Temperature.BLAZING;
 			break;
-		default:
+		}
+		
+		if(myTemperature == target) {
+			myState = State.DESTINATION;
+		}
+		
+		switch(myState) {
+		case DESTINATION: 
 			break;
+		case INCREASE:
+			increaseTemperature();
+		break;
+		case DECREASE:
+			decreaseTemperature();
+		break;
 		}
 		
 	}
 	
-	private void increaseTemperature(Temperature Target){
-		if(myTemperature == Target) {
-			return;
-		}
+	private void increaseTemperature(){
 		
 		switch(myTemperature) {
 		case COLD:
@@ -94,6 +127,25 @@ public class Burner {
 			break;
 		case HOT:
 			myTemperature = Temperature.BLAZING;
+			break;
+		default:
+			break;
+		}
+		timer = TIME_DURATION;
+		
+	}
+	
+	private void decreaseTemperature(){
+		
+		switch(myTemperature) {
+		case WARM:
+			myTemperature = Temperature.COLD;
+			break;
+		case HOT:
+			myTemperature = Temperature.WARM;
+			break;
+		case BLAZING:
+			myTemperature = Temperature.HOT;
 			break;
 		default:
 			break;
@@ -162,5 +214,16 @@ public class Burner {
 			test2.display();
 		}
 		
+		System.out.println("\n__Suite 3___");
+		//test decrementing
+		for(int i = 0; i < 3; ++i) {
+			test2.minusButton();
+			test2.display();
+		}
+		for(int j = 0; j < 5*3; ++j) {
+			System.out.println(test2.timer);
+			test2.updateTemperature();
+			test2.display();
+		}
 	}
 }
