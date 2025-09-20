@@ -1,4 +1,14 @@
-
+/**
+ * Burner Class
+ * 
+ * @author Jacob Dionne
+ * @author Phillip Hernandez
+ * 
+ * Purpose & Responsibilities: 
+ * Responsible for changing temperate and settings of the burner.
+ * 
+ * Started work on Monday September, 19 2025
+ */
 public class Burner {
 
 	public final static int TIME_DURATION = 2;
@@ -116,7 +126,7 @@ public class Burner {
 		case DESTINATION: 
 			break;
 		case INCREASE:
-			//chose to handle increasing / decreasing in a different 
+			//chose to handle increasing / decreasing temperature in a different 
 			//function to improve readability
 			increaseTemperature();
 		break;
